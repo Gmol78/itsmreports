@@ -19,11 +19,11 @@ class DataHandlerBase extends DataHandler {
 
     private $data;
     protected $dataStorage;
-    
-    private $wayAddresingList = null;
-    private $responsiblesList = null;
-    private $solvedByList = null;
-    private $servicesList = null;
+    private $wayAddresingList = [];
+    private $responsiblesList = [];
+    private $solvedByList = [];
+    private $servicesList = [];
+    private $marksList = [];
 
     public function find(Filter $filter) {
 
@@ -47,41 +47,56 @@ class DataHandlerBase extends DataHandler {
 
     public function getWayAddresingList() {
 
-        if (is_null($this->wayAddresingList)) {
+        if (empty($this->wayAddresingList)) {
             $this->buildWayAddresing();
         }
 
         return $this->wayAddresingList;
     }
-    
+
     public function getServicesList() {
-        
-         if (is_null($this->servicesList)) {
+
+        if (empty($this->servicesList)) {
             $this->buildServicesList();
         }
 
         return $this->servicesList;
     }
 
-        public function getResponsiblesList() {
-        
-        if (is_null($this->responsiblesList)) {
+    public function getResponsiblesList() {
+
+        if (empty($this->responsiblesList)) {
             $this->buildResponsiblesList();
         }
 
-        return $this->responsiblesList;     
+        return $this->responsiblesList;
     }
-    
+
     public function getSolvedByList() {
-        
-        if (is_null($this->rsolvedByList)) {
+
+        if (empty($this->solvedByList)) {
             $this->buildSolvedByList();
         }
 
-        return $this->responsiblesList;     
+        return $this->responsiblesList;
     }
-    
-    
+
+    public function getMarksList() {
+        if (empty($this->marksList)) {
+            $this->buildMarksList();
+        }
+        return $this->marksList;
+    }
+
+    private function buildMarksList() {
+
+        $list = [];
+        foreach ($this->data->getData() as $item) {
+            $list[$item['mark']['UUID']] = $item['mark']['title'];
+        }
+        $this->servicesList = $list;
+    }
+
     private function buildServicesList() {
 
         $list = [];
@@ -108,7 +123,7 @@ class DataHandlerBase extends DataHandler {
         }
         $this->responsiblesList = $list;
     }
-    
+
     private function buildSolvedByList() {
 
         $list = [];

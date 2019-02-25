@@ -24,9 +24,9 @@ $handler = $app->getDataHandler();
 
 var_dump($handler->getServicesList());
 
-//$handler->find(new \model\filter\FilterResumed());
+$handler->find(new \model\filter\FilterDoneRequest());
 
-//var_dump($handler->getResult());
+var_dump($handler->getResult());
 
 $req = $app->getRequest();
 $req->setProperty('date_start', '10.01.2019');
@@ -65,10 +65,8 @@ echo '<br>';
 $rep3 = new \controller\report\ReportRequestsByServices();
 $rep3->build();
 $rep3->renderReport('report_table');
- 
 
-
-
+/* https://servicecloud.itsm365.com/sd/services/rest/find/serviceCall/?accessKey=14676306-d0f3-49b9-8300-77e0740c8bd3&responsibleTeam=team$2274902 */
 
 
 
